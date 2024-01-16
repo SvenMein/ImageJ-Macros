@@ -1,0 +1,3 @@
+//This macro is used to count the eisosome in a image.
+//As a result the total amount of identified eisosome and the eisosomes per cell should be returned.
+//This macro should work as batch process, processing a folder of images automaticly.
