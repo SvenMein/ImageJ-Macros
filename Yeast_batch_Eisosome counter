@@ -1,3 +1,29 @@
 //This macro is used to count the eisosome in a image.
 //As a result the total amount of identified eisosome and the eisosomes per cell should be returned.
 //This macro should work as batch process, processing a folder of images automaticly.
+//This macro first counts the total eisosomes, then the total cells in an image.
+//Both values will be printed to the log window.
+
+//First the eisosomes in the image are counted.
+//In this case eisosomes have been marked by integrating tRPL18B-PIL1::mScarlet-tSSA1 into the yeast genome
+//In the way our microscop works, the margenta channel will always be the active one when opening an image
+
+run("Duplicate...", " ");
+rename("Eisosomes");
+setThreshold(16832, 65535, "raw");
+run("Convert to Mask");
+run("Analyze Particles...", "add");
+roiManager("count");
+roiManager("reset");
+close("Eisosomes");
+
+run("Duplicate...", " ");
+rename("Cells");
+run("Gaussian Blur...", "sigma=20");
+setThreshold(1729, 65535, "raw");
+run("Convert to Mask");
+run("Watershed");
+run("Analyze Particles...", "add");
+roiManager("count");
+roiManager("reset");
+close("Cells");
