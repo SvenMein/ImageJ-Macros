@@ -1,0 +1,13 @@
+//Th
+//open dialogue to get directory of input images
+input = getDirectory("Select input folder");
+//open dialogue to find out where results should be stored
+output = getDirectory("Select output folder for results");
+//Get number of images in input folder
+list = getFileList(input);
+setBatchMode(true);
+
+for (i = 0; i < list.length; i++) {
+ 	open(input+list[i]);
+ 	//Insert macro/analysis/processing or whatever here
+}
