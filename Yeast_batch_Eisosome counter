@@ -10,7 +10,7 @@ run("3D OC Options", "volume surface nb_of_obj._voxels nb_of_surf._voxels integr
 for (i = 0; i < list.length; i++) {
  	open(input+list[i]);
  	//Insert macro/analysis/processing or whatever here
-	run("3D Objects Counter", "threshold=15774 slice=1 min.=10 max.=8388608 exclude_objects_on_edges objects surfaces centroids centres_of_masses statistics summary");
+	run("3D Objects Counter", "threshold=20000 slice=1 min.=10 max.=8388608 exclude_objects_on_edges objects surfaces centroids centres_of_masses statistics summary");
 	//saving results
 	saveAs("Results", output+i+"-data.xls");
 }
