@@ -10,4 +10,6 @@ setBatchMode(true);
 for (i = 0; i < list.length; i++) {
  	open(input+list[i]);
  	//Insert macro/analysis/processing or whatever here
+	//saving results
+	saveAs("Results", output+i+"-data.xls");
 }
