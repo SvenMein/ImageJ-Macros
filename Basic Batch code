@@ -1,4 +1,3 @@
-//Th
 //open dialogue to get directory of input images
 input = getDirectory("Select input folder");
 //open dialogue to find out where results should be stored
