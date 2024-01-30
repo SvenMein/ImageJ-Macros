@@ -1,0 +1,16 @@
+//This macro converts an open and active multi-channel timelapse into multi-channel tiff-images of each timepoint.
+//By Sven Meinerz
+
+output = getDirectory("Save images here");
+
+x = nSlices/2;
+y = x-1
+
+for (i = 0; i < y; i++) {
+	run("Duplicate...", " ");
+	saveAs("Tiff", output+i+".tiff");
+	close();
+	run("Delete Slice", "delete=slice");
+}
+saveAs("Tiff", output+x+".tiff");
+close();
