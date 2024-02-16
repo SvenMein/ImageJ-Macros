@@ -10,7 +10,8 @@ for (i = 0; i < y; i++) {
 	run("Duplicate...", " ");
 	saveAs("Tiff", output+i+".tiff");
 	close();
+	//You might need to change "delet=slice" to "delete=frame".
 	run("Delete Slice", "delete=slice");
 }
 saveAs("Tiff", output+x+".tiff");
-close();
+close("*");
