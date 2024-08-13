@@ -1,0 +1,22 @@
+images = getDirectory("Select folder with input images for Coloc2");
+boundaries = getDirectory("_Select folder with saved ROIs for Coloc2");
+output = getDirectory("Where should the results be saved");
+list = getFileList(images);
+list2 = getFileList(boundaries);
+setBatchMode(true);
+
+for (i = 0; i < list.length; i++) {
+	 	open(images+list[i]);
+ 	roiManager("open", boundaries+list2[i]);
+ 	run("Split Channels");
+ 	run("Coloc 2", "roi_or_mask=[ROI Manager] threshold_regression=Bisection costes'_significance_test psf=4 costes_randomisations=10");
+	getInfo("log");
+	saveAs("text", output+i+"-data.txt");
+ 	close("*");
+ 	selectWindow("Log");
+ 	run("Close");
+ 	roiManager("reset");
+ 	}
+ run("Text Window...", "name="+ All done! +" width=25 height=2 monospaced");
+
+print("All done!")
