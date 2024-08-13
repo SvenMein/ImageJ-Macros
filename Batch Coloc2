@@ -3,13 +3,33 @@ boundaries = getDirectory("_Select folder with saved ROIs for Coloc2");
 output = getDirectory("Where should the results be saved");
 list = getFileList(images);
 list2 = getFileList(boundaries);
+
+open(images+list[0]);
+rename("Example");
+Dialog.create("Basic Batch Coloc2");
+Dialog.addString("Number of first channel", "1");
+Dialog.addString("Number of second channel", "2");
+Dialog.show();
+
+c1 = Dialog.getString();
+c2 = Dialog.getString();
+run("Duplicate...", "duplicate channels=c1");
+selectImage("Example");
+run("Duplicate...", "duplicate channels=c2");
+selectImage("Example");
+close();
+
+waitForUser("Are these the channels you want to analyze?");
+close("*");
+
+
 setBatchMode(true);
 
 for (i = 0; i < list.length; i++) {
-	 	open(images+list[i]);
+	open(images+list[i]);
  	roiManager("open", boundaries+list2[i]);
  	run("Split Channels");
- 	run("Coloc 2", "roi_or_mask=[ROI Manager] threshold_regression=Bisection costes'_significance_test psf=4 costes_randomisations=10");
+ 	run("Coloc 2", "roi_or_mask=[ROI Manager] threshold_regression=Bisection costes'_significance_test psf=4 costes_randomisations=2");
 	getInfo("log");
 	saveAs("text", output+i+"-data.txt");
  	close("*");
@@ -17,6 +37,5 @@ for (i = 0; i < list.length; i++) {
  	run("Close");
  	roiManager("reset");
  	}
- run("Text Window...", "name="+ All done! +" width=25 height=2 monospaced");
 
 print("All done!")
