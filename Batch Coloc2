@@ -1,9 +1,16 @@
+//Macro for semi-automated batch analysis of images via Coloc2
+//Input image should be in TIF-Format. This speeds the whole thing up.
+//By Sven Meinerz
+
+//Get directory of images and ROIs.
+//For some reason the messages can not start with the same words.
 images = getDirectory("Select folder with input images for Coloc2");
 boundaries = getDirectory("_Select folder with saved ROIs for Coloc2");
 output = getDirectory("Where should the results be saved");
 list = getFileList(images);
 list2 = getFileList(boundaries);
 
+//Here one image will be opened to check for the channels which should be analyzed.
 open(images+list[0]);
 rename("Example");
 Dialog.create("Basic Batch Coloc2");
@@ -22,14 +29,18 @@ close();
 waitForUser("Are these the channels you want to analyze?");
 close("*");
 
-
 setBatchMode(true);
 
 for (i = 0; i < list.length; i++) {
 	open(images+list[i]);
+	rename("Current");
+	run("Duplicate...", "duplicate channels=c1");
+	selectImage("Current");
+	run("Duplicate...", "duplicate channels=c2");
+	selectImage("Current");
+	close();
  	roiManager("open", boundaries+list2[i]);
- 	run("Split Channels");
- 	run("Coloc 2", "roi_or_mask=[ROI Manager] threshold_regression=Bisection costes'_significance_test psf=4 costes_randomisations=2");
+ 	run("Coloc 2", "roi_or_mask=[ROI Manager] threshold_regression=Bisection costes'_significance_test psf=4 costes_randomisations=10");
 	getInfo("log");
 	saveAs("text", output+i+"-data.txt");
  	close("*");
