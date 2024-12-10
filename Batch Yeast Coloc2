@@ -5,10 +5,8 @@
 //Get directory of images and results.
 //For some reason the messages can not start with the same words.
 images = getDirectory("Select folder with input images for Coloc2");
-//boundaries = getDirectory("_Select folder with saved ROIs for Coloc2");
 output = getDirectory("Where should the results be saved");
 list = getFileList(images);
-//list2 = getFileList(boundaries);
 
 //Here one image will be opened to check for the channels which should be analyzed.
 open(images+list[0]);
