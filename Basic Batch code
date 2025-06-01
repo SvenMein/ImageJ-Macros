@@ -1,3 +1,5 @@
+//This is not a macro, but a lttle memory helper for writing batch macros
+
 //open dialogue to get directory of input images
 input = getDirectory("Select input folder");
 //open dialogue to find out where results should be stored
@@ -8,7 +10,8 @@ setBatchMode(true);
 
 for (i = 0; i < list.length; i++) {
  	open(input+list[i]);
+	imagesName=getTitle();
  	//Insert macro/analysis/processing or whatever here
 	//saving results
-	saveAs("Results", output+i+"-data.xls");
+	saveAs("text", output + imagesName + "_data.txt");
 }
