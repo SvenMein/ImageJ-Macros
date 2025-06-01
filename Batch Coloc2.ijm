@@ -33,6 +33,7 @@ setBatchMode(true);
 
 for (i = 0; i < list.length; i++) {
 	open(images+list[i]);
+	imagesName=getTitle();
 	//Images will be renamed so that they are more easily recognized by the macro. The names are arbitrary and have no influence on the results.
 	rename("Current");
 	run("Duplicate...", "duplicate channels=c1");
@@ -45,7 +46,7 @@ for (i = 0; i < list.length; i++) {
  	roiManager("open", boundaries+list2[i]);
  	run("Coloc 2", "channel_1=green channel_2=red roi_or_mask=[ROI Manager] threshold_regression=Bisection costes'_significance_test psf=4 costes_randomisations=10");
 	getInfo("log");
-	saveAs("text", output+i+"-data.txt");
+	saveAs("text", output + imagesName + "-Coloc_data.txt");
  	close("*");
  	selectWindow("Log");
  	run("Close");
